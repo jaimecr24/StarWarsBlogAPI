@@ -184,6 +184,9 @@ def add_favplanet_user(planet_id):
     if activ_user is None:
         return jsonify({"msg": "No user active"}), 401
     else:
+        planet = Planet.query.get(planet_id)
+        if planet is None:
+            return "Error: Id planet not exists",400
         if request.method == 'POST':
             favplanet = FavPlanet.query.filter_by(idUser=activ_user.id, idPlanet=planet_id).first()
             if favplanet:
@@ -208,6 +211,9 @@ def add_favpeople_user(people_id):
     if activ_user is None:
         return jsonify({"msg": "No user active"}), 401
     else:
+        people = People.query.get(people_id)
+        if people is None:
+            return "Error: Id people not exists",400
         if request.method == 'POST':
             favpeople = FavPeople.query.filter_by(idUser=activ_user.id, idPeople=people_id).first()
             if favpeople:
